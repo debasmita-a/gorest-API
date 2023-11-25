@@ -2,6 +2,7 @@ package com.qa.gorest.tests;
 
 import static org.hamcrest.Matchers.equalTo;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.qa.gorest.base.BaseTest;
@@ -9,7 +10,12 @@ import com.qa.gorest.client.RestClient;
 import com.qa.gorest.pojo.User;
 
 public class CreateUserTest  extends BaseTest{
-
+	
+	@BeforeMethod
+	public void getUserSetUp() {
+		restClient = new RestClient(prop, baseURI);
+	}
+	
 	@Test
 	public void createUserTest(){
 		
@@ -23,7 +29,8 @@ public class CreateUserTest  extends BaseTest{
 		                             .path("id");
 		  System.out.println("User id is : " + userId) ;
 		  
-		  restClient.get("/public/v2/users/" + userId ,true, true)
+		  RestClient restClientGet = new RestClient(prop, baseURI);
+		  restClientGet.get("/public/v2/users/" + userId ,true, true)
                .then().log().all()
                    .assertThat()
                        .statusCode(200)  

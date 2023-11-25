@@ -27,6 +27,5 @@ public class BaseTest {
 		prop = configManager.initProp();
 		//String baseURI = prop.getProperty("baseURI");
 		this.baseURI = baseURI;
-		restClient = new RestClient(prop, baseURI);
 	}
 }

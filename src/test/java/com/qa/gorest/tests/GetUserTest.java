@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.hasSize;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.qa.gorest.base.BaseTest;
@@ -13,9 +14,13 @@ import com.qa.gorest.client.RestClient;
 
 public class GetUserTest extends BaseTest{
 	
-	@Test
-	public void getAllUsersTest() {
+	@BeforeMethod
+	public void getUserSetUp() {
 		restClient = new RestClient(prop, baseURI);
+	}
+	
+	@Test(priority = 3)
+	public void getAllUsersTest() {
 		restClient.get("/public/v2/users", true, true)
 		            .then().log().all()
 		               .assertThat()
@@ -25,9 +30,8 @@ public class GetUserTest extends BaseTest{
 		            
 	}
 	
-	@Test
+	@Test(priority = 2)
 	public void getUserTest() {
-		restClient = new RestClient(prop, baseURI);
 		restClient.get("/public/v2/users/5765574", true, true)
 		            .then().log().all()
 		               .assertThat()
@@ -37,9 +41,8 @@ public class GetUserTest extends BaseTest{
 		            
 	}
 	
-	@Test
+	@Test(priority = 1)
 	public void getUserWithQueryParamsTest() {
-		restClient = new RestClient(prop, baseURI);
 		Map<String, String> queryParamsMap = new HashMap<String, String>();
 		queryParamsMap.put("name", "Debasmita");
 		queryParamsMap.put("status", "inactive");
