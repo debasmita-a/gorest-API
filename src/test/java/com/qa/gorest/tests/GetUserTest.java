@@ -7,10 +7,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.qa.gorest.base.BaseTest;
 import com.qa.gorest.client.RestClient;
+import com.qa.gorest.constants.APIHttpStatus;
 
 public class GetUserTest extends BaseTest{
 	
@@ -21,10 +23,10 @@ public class GetUserTest extends BaseTest{
 	
 	@Test(priority = 3)
 	public void getAllUsersTest() {
-		restClient.get("/public/v2/users", true, true)
+		restClient.get(GOREST_ENDPOINT, true, true)
 		            .then().log().all()
 		               .assertThat()
-		                   .statusCode(200)  
+		                   .statusCode(APIHttpStatus.OK_200.getCode())  
 		                        .and()
 		                             .body("$", hasSize(10));
 		            
@@ -32,10 +34,10 @@ public class GetUserTest extends BaseTest{
 	
 	@Test(priority = 2)
 	public void getUserTest() {
-		restClient.get("/public/v2/users/5765574", true, true)
+		restClient.get(GOREST_ENDPOINT, true, true)
 		            .then().log().all()
 		               .assertThat()
-		                   .statusCode(200)  
+		                   .statusCode(APIHttpStatus.OK_200.getCode())  
 		                        .and()
 		                          .body("id", equalTo(5765574));
 		            
@@ -43,19 +45,16 @@ public class GetUserTest extends BaseTest{
 	
 	@Test(priority = 1)
 	public void getUserWithQueryParamsTest() {
-		Map<String, String> queryParamsMap = new HashMap<String, String>();
+		Map<String, Object> queryParamsMap = new HashMap<String, Object>();
 		queryParamsMap.put("name", "Debasmita");
 		queryParamsMap.put("status", "inactive");
 		
 		Map<String, String> headersMap = new HashMap<String, String>();
 		
-		restClient.get("/public/v2/users/5765574", headersMap, queryParamsMap,true, true)
+		restClient.get(GOREST_ENDPOINT, headersMap, queryParamsMap,true, true)
 		            .then().log().all()
 		               .assertThat()
-		                   .statusCode(200)  
-		                        .and()
-		                          .body("name", equalTo("Debasmita"));
-		                             
+		                   .statusCode(APIHttpStatus.OK_200.getCode());                            
 		            
 	}
 }

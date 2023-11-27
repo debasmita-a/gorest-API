@@ -13,6 +13,13 @@ import io.restassured.RestAssured;
 
 public class BaseTest {
 
+	//Service URLs :
+	public static final String GOREST_ENDPOINT = "/public/v2/users/";
+	public static final String REQRES_ENDPOINT = "/api/uers/";
+	public static final String CIRCUIT_ENDPOINT = "/api/f1/";
+	public static final String AMADEUS_TOKEN_ENDPOINT = "/v1/security/oauth2/token";
+	public static final String AMADEUS_FLIGHT_BOOKING_ENDPOINT = "/v1/shopping/flight-destinations";
+	
 	protected ConfigurationManager configManager;
 	protected Properties prop;
 	protected RestClient restClient;

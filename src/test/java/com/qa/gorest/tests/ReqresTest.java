@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import com.qa.gorest.base.BaseTest;
 import com.qa.gorest.client.RestClient;
+import com.qa.gorest.constants.APIHttpStatus;
 
 public class ReqresTest  extends BaseTest{
 
@@ -17,10 +18,10 @@ public class ReqresTest  extends BaseTest{
 	@Test
 	public void getAllUsersTest() {
 		
-		restClient.get("/api/uers/2", false, false)
+		restClient.get(REQRES_ENDPOINT + 2, false, false)
 		            .then().log().all()
 		               .assertThat()
-		                   .statusCode(200);  
+		                   .statusCode(APIHttpStatus.OK_200.getCode());  
 		                        
 		            
 	}
