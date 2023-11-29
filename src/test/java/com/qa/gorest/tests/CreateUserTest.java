@@ -13,6 +13,8 @@ import com.qa.gorest.constants.FrameworkConstants;
 import com.qa.gorest.pojo.User;
 import com.qa.gorest.utils.ExcelUtil;
 
+import io.restassured.module.jsv.JsonSchemaValidator;
+
 public class CreateUserTest  extends BaseTest{
 	
 	@BeforeMethod
@@ -55,4 +57,5 @@ public class CreateUserTest  extends BaseTest{
                               .body("id", equalTo(userId));
 		            
 	}
+
 }

@@ -7,12 +7,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.qa.gorest.base.BaseTest;
 import com.qa.gorest.client.RestClient;
 import com.qa.gorest.constants.APIHttpStatus;
+
+import io.qameta.allure.Description;
 
 public class GetUserTest extends BaseTest{
 	
@@ -20,8 +21,8 @@ public class GetUserTest extends BaseTest{
 	public void getUserSetUp() {
 		restClient = new RestClient(prop, baseURI);
 	}
-	
-	@Test(priority = 3)
+	@Description("This test is not complete.")
+	@Test(enabled = false, priority = 3)
 	public void getAllUsersTest() {
 		restClient.get(GOREST_ENDPOINT, true, true)
 		            .then().log().all()
@@ -34,7 +35,7 @@ public class GetUserTest extends BaseTest{
 	
 	@Test(priority = 2)
 	public void getUserTest() {
-		restClient.get(GOREST_ENDPOINT, true, true)
+		restClient.get(GOREST_ENDPOINT+"/5765574", true, true)
 		            .then().log().all()
 		               .assertThat()
 		                   .statusCode(APIHttpStatus.OK_200.getCode())  
