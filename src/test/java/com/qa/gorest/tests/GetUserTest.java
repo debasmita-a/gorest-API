@@ -22,7 +22,7 @@ public class GetUserTest extends BaseTest{
 		restClient = new RestClient(prop, baseURI);
 	}
 	@Description("This test is not complete.")
-	@Test(enabled = false, priority = 3)
+	@Test(enabled = true, priority = 3)
 	public void getAllUsersTest() {
 		restClient.get(GOREST_ENDPOINT, true, true)
 		            .then().log().all()
