@@ -40,7 +40,7 @@ public class GetUserTest extends BaseTest{
 		               .assertThat()
 		                   .statusCode(APIHttpStatus.OK_200.getCode())  
 		                        .and()
-		                          .body("id", equalTo(5765574));
+		                          .body("id", equalTo(5783319));
 		            
 	}
 	
