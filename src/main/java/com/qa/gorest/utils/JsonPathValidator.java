@@ -18,8 +18,7 @@ public class JsonPathValidator {
 		}catch(PathNotFoundException e) {
 			e.printStackTrace();
 			throw new APIFrameworkException(jsonPath + "is not found");
-		}
-		
+		}	
 	}
 
 	public <T> List<T> readList(Response response, String jsonPath) {
@@ -29,8 +28,7 @@ public class JsonPathValidator {
 		}catch(PathNotFoundException e) {
 			e.printStackTrace();
 			throw new APIFrameworkException(jsonPath + "is not found");
-		}
-		
+		}	
 	}
 
 	public <T> List<Map<String,T>> readListOfMaps(Response response, String jsonPath) {
@@ -40,7 +38,6 @@ public class JsonPathValidator {
 		}catch(PathNotFoundException e) {
 			e.printStackTrace();
 			throw new APIFrameworkException(jsonPath + "is not found");
-		}
-		
+		}		
 	}
 }

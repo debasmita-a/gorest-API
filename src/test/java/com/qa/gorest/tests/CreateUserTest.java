@@ -9,7 +9,9 @@ import org.testng.annotations.Test;
 import com.qa.gorest.base.BaseTest;
 import com.qa.gorest.client.RestClient;
 import com.qa.gorest.constants.APIHttpStatus;
+import com.qa.gorest.constants.FrameworkConstants;
 import com.qa.gorest.pojo.User;
+import com.qa.gorest.utils.ExcelUtil;
 
 public class CreateUserTest  extends BaseTest{
 	
@@ -24,6 +26,11 @@ public class CreateUserTest  extends BaseTest{
 			{"Kikimora", "Female", "Inactive"},
 			{"Domovoi", "Male", "Active"}
 		};
+	}
+	
+	@DataProvider
+	public Object[][] getUserTestSheetData(){
+		return ExcelUtil.getTestData(FrameworkConstants.GOREST_USER_SHEET_NAME);
 	}
 	
 	@Test(dataProvider = "getUserTestData")
