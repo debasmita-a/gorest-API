@@ -35,7 +35,7 @@ public class GetUserTest extends BaseTest{
 	
 	@Test(priority = 2)
 	public void getUserTest() {
-		restClient.get(GOREST_ENDPOINT+"/5765574", true, true)
+		restClient.get(GOREST_ENDPOINT+"/5783319", true, true)
 		            .then().log().all()
 		               .assertThat()
 		                   .statusCode(APIHttpStatus.OK_200.getCode())  
