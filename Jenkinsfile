@@ -1,17 +1,10 @@
-​pipeline 
+pipeline 
 {
     agent any
     
     tools{
     	maven 'maven'
         }
-        
-    environment{
-   
-        BUILD_NUMBER = "${BUILD_NUMBER}"
-   
-    }
-    
 
     stages 
     {
@@ -20,7 +13,7 @@
             steps
             {
                  git 'https://github.com/jglick/simple-maven-project-with-tests.git'
-                 bat "mvn -Dmaven.test.failure.ignore=true clean package"
+                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
             }
             post 
             {
@@ -33,85 +26,86 @@
         }
         
         
+        
         stage("Deploy to QA"){
             steps{
                 echo("deploy to qa done")
             }
         }
+                
+        stage('Regression API Automation Test') {
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    git 'https://github.com/debasmita-a/gorest-API.git'
+                    sh "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/testng_regression.xml"
                     
-        stage('Regression Automation Test'){
-           steps{
-              catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
-                 git 'https://github.com/debasmita-a/gorest-API.git'
-                 sh "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/testng_regression.xml"
-              }
-           }
-        }        
-
-       stage('Publish Allure Reports'){
-          steps{
-             script{
-                 allure([
-                       includeProperties: false,
-                       jdk: '',
-                       properties: [],
-                       reportBuildPolicy: 'ALWAYS',
-                       results: [[path: '/allure-results']]
-                       ])
-             }
-          }
-       }
-		stage('Publish Regression Extent Report'){
+                }
+            }
+        }
+                
+     
+        stage('Publish Allure Reports') {
+           steps {
+                script {
+                    allure([
+                        includeProperties: false,
+                        jdk: '',
+                        properties: [],
+                        reportBuildPolicy: 'ALWAYS',
+                        results: [[path: '/allure-results']]
+                    ])
+                }
+            }
+        }
+        
+        
+        stage('Publish Extent Report'){
             steps{
                      publishHTML([allowMissing: false,
                                   alwaysLinkToLastBuild: false, 
                                   keepAll: false, 
-                                  reportDir: 'target', 
+                                  reportDir: 'reports', 
                                   reportFiles: 'APIExecutionReport.html', 
-                                  reportName: 'API HTML Regression Extent Report', 
+                                  reportName: 'API HTML Extent Report', 
                                   reportTitles: ''])
             }
         }
         
-          stage("Deploy to STAGE"){
+        
+         stage("Deploy to STAGE"){
             steps{
-                echo("deploy to Stage done")
+                echo("deploy to STAGE done")
             }
         }
+        
+        stage('Sanity Automation Test') {
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    git 'https://github.com/debasmita-a/gorest-API.git'
+                    sh "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/testng_sanity.xml"
                     
-        stage('Sanity Automation Test'){
-           steps{
-              catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
-                 git 'https://github.com/debasmita-a/gorest-API.git'
-                 sh "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/testng_sanity.xml"
-              }
-           }
-        }        
-
-       stage('Publish Allure Reports after sanity'){
-          steps{
-             script{
-                 allure([
-                       includeProperties: false,
-                       jdk: '',
-                       properties: [],
-                       reportBuildPolicy: 'ALWAYS',
-                       results: [[path: '/allure-results']]
-                       ])
-             }
-          }
-       }
-       
-		stage('Publish Regression Extent Report after sanity'){
+                }
+            }
+        }
+        
+        
+         stage('Publish Extent Report'){
             steps{
                      publishHTML([allowMissing: false,
                                   alwaysLinkToLastBuild: false, 
                                   keepAll: false, 
-                                  reportDir: 'target', 
+                                  reportDir: 'reports', 
                                   reportFiles: 'APIExecutionReport.html', 
-                                  reportName: 'API HTML Regression Extent Report', 
+                                  reportName: 'API HTML Extent Report', 
                                   reportTitles: ''])
             }
         }
-    }  
+        
+        
+        stage("Deploy to PROD"){
+            steps{
+                echo("deploy to PROD")
+            }
+        }
+    }
 }
