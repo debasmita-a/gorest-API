@@ -1,4 +1,4 @@
-pipeline 
+​pipeline 
 {
     agent any
     
@@ -88,7 +88,7 @@ pipeline
            }
         }        
 
-       stage('Publish Allure Reports'){
+       stage('Publish Allure Reports after sanity'){
           steps{
              script{
                  allure([
@@ -102,7 +102,7 @@ pipeline
           }
        }
        
-		stage('Publish Regression Extent Report'){
+		stage('Publish Regression Extent Report after sanity'){
             steps{
                      publishHTML([allowMissing: false,
                                   alwaysLinkToLastBuild: false, 
@@ -114,5 +114,4 @@ pipeline
             }
         }
       
-    }
 }
