@@ -65,7 +65,7 @@ pipeline
                                   alwaysLinkToLastBuild: false, 
                                   keepAll: false, 
                                   reportDir: 'reports', 
-                                  reportFiles: 'APIExecutionReport.html', 
+                                  reportFiles: 'APITestExecutionReport.html', 
                                   reportName: 'API HTML Extent Report', 
                                   reportTitles: ''])
             }
@@ -95,7 +95,7 @@ pipeline
                                   alwaysLinkToLastBuild: false, 
                                   keepAll: false, 
                                   reportDir: 'reports', 
-                                  reportFiles: 'APIExecutionReport.html', 
+                                  reportFiles: 'APITestExecutionReport.html', 
                                   reportName: 'API HTML Extent Report', 
                                   reportTitles: ''])
             }
