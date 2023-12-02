@@ -35,7 +35,7 @@ public class CreateUserTest  extends BaseTest{
 		return ExcelUtil.getTestData(FrameworkConstants.GOREST_USER_SHEET_NAME);
 	}
 	
-	@Test(dataProvider = "getUserTestData")
+	@Test(dataProvider = "getUserTestSheetData")
 	public void createUserTest(String name, String gender, String status){
 		
 		User user = new User(name, "gorest_" + System.currentTimeMillis() + "@api.com", gender, status);
